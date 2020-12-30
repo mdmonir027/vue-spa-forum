@@ -9,6 +9,13 @@ class Question extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    protected $guarded = [];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -22,6 +29,11 @@ class Question extends Model
     public function replies()
     {
         return $this->hasMany(Reply::class)->latest();
+    }
+
+    public function getPathAttribute()
+    {
+        return asset("/api/question/$this->slug");
     }
 
 }

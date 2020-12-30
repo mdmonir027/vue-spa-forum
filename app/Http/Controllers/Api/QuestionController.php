@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class QuestionController extends Controller
 {
@@ -15,7 +17,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = QuestionResource::collection(Question::orderBy('id' , 'desc')->get());
+        return  response(($questions) , Response::HTTP_OK);
+
     }
 
     /**
@@ -26,18 +30,19 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Question::create($request->all());
+        return response('Question Created' , Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response $question
      */
     public function show(Question $question)
     {
-        //
+        return response(new QuestionResource($question) , Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -49,7 +54,8 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+        return  response('Question Updated' , Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -60,6 +66,9 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return response(null , Response::HTTP_NO_CONTENT);
+
     }
 }
