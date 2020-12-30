@@ -3,63 +3,35 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Like;
-use Illuminate\Http\Request;
+use App\Models\Reply;
+use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Reply $reply
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function likeIt(Reply $reply)
     {
-        //
-    }
+        $reply->likes()->create([
+            'user_id' => '1'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Like $like)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Like  $like
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Like $like)
-    {
-        //
+        return response('Like' , Response::HTTP_CREATED);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Like  $like
+     * @param  \App\Models\Reply $reply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function unlikeIt(Reply $reply)
     {
-        //
+        $reply->likes()->where('user_id' , '1')->first()->delete();
+        return response('Unlike' , Response::HTTP_ACCEPTED);
     }
 }
