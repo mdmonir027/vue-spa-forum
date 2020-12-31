@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-dark text-white">
+    <div class="bg-dark text-white py-3">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-md-6">

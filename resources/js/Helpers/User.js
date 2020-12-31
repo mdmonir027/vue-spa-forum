@@ -11,9 +11,8 @@ class User {
     }
 
     responseAfterLogin(token) {
-
         const access_token = token.access_token;
-        const user = token.user
+        const user = token.user;
         if (Token.isValid(access_token)) {
             AppStorage.store(user, access_token)
         }
@@ -44,12 +43,12 @@ class User {
         return null;
     }
 
-    id(){
-        if (this.loggedIn()){
+    id() {
+        if (this.loggedIn()) {
             const payload = Token.payload(AppStorage.getToken());
             return payload.sub;
         }
-        return  0;
+        return 0;
     }
 
 }

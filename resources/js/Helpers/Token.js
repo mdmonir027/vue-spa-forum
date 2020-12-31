@@ -3,7 +3,7 @@ class Token {
     isValid(token){
         const payload = this.payload(token);
         if (payload){
-            return payload.iss == 'http://spa-blog.test/api/auth/login' ? true: false;
+            return payload.iss == 'http://spa-blog.test/api/auth/login' || 'http://spa-blog.test/api/auth/sign-up' ? true: false;
         }
         return false
     }

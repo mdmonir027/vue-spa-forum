@@ -1,5 +1,4 @@
 require('./bootstrap');
-
 window.Vue = require('vue');
 import jquery from 'jquery'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
@@ -9,7 +8,6 @@ import User from "./Helpers/User"; // User class
 
 // user class for global
 window.User = User;
-
 
 Vue.component('app-home', require('./component/AppHome').default);
 

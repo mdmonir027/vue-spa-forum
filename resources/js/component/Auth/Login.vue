@@ -18,6 +18,7 @@
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-block" type="submit" >Login</button>
+                                <router-link to="/sign-up" class="btn btn-success btn-block" >SignUp</router-link>
                             </div>
                         </form>
                     </div>
