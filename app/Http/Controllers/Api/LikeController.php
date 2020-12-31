@@ -9,6 +9,15 @@ use Symfony\Component\HttpFoundation\Response;
 class LikeController extends Controller
 {
     /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('JWT');
+    }
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Models\Reply $reply
