@@ -2487,6 +2487,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Question",
@@ -2525,6 +2526,17 @@ __webpack_require__.r(__webpack_exports__);
         _this2.getQuestion();
 
         _this2.editing = false;
+      });
+    },
+    deleteQuestion: function deleteQuestion() {
+      var _this3 = this;
+
+      axios["delete"]("/api/question/".concat(this.$route.params.slug)).then(function (response) {
+        return _this3.$router.push({
+          name: 'Home'
+        });
+      })["catch"](function (error) {
+        return console.log(error.response.data);
       });
     }
   },
@@ -32032,30 +32044,39 @@ var render = function() {
                       domProps: { innerHTML: _vm._s(_vm.question.body) }
                     })
                   ])
-                ]),
-            _vm._v(" "),
-            _vm.own && !_vm.editing
-              ? _c("div", { staticClass: "card-footer" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary btn-sm",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.editQuestion()
-                        }
-                      }
-                    },
-                    [_vm._v("Edit")]
-                  ),
-                  _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-danger btn-sm" }, [
-                    _vm._v("Delete")
-                  ])
                 ])
-              : _vm._e()
-          ])
+          ]),
+          _vm._v(" "),
+          _vm.own && !_vm.editing
+            ? _c("div", { staticClass: "card-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-sm",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editQuestion()
+                      }
+                    }
+                  },
+                  [_vm._v("Edit")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger btn-sm",
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteQuestion()
+                      }
+                    }
+                  },
+                  [_vm._v("Delete")]
+                )
+              ])
+            : _vm._e()
         ])
       ])
     ])

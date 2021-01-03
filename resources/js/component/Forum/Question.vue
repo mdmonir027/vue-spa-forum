@@ -28,10 +28,11 @@
                             </div>
 
                         </div>
-                        <div class="card-footer" v-if="own && !editing">
-                            <button type="button" class="btn btn-primary btn-sm" @click="editQuestion()">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </div>
+
+                    </div>
+                    <div class="card-footer" v-if="own && !editing">
+                        <button type="button" class="btn btn-primary btn-sm" @click="editQuestion()">Edit</button>
+                        <button class="btn btn-danger btn-sm" @click="deleteQuestion()">Delete</button>
                     </div>
                 </div>
 
@@ -76,6 +77,11 @@
                     this.getQuestion();
                     this.editing = false;
                 });
+            },
+            deleteQuestion(){
+                axios.delete(`/api/question/${this.$route.params.slug}`)
+                    .then(response => this.$router.push({name: 'Home'}))
+                    .catch(error => console.log(error.response.data))
             }
         },
         watch: {
