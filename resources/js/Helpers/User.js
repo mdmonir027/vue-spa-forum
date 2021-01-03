@@ -15,6 +15,7 @@ class User {
         const user = token.user;
         if (Token.isValid(access_token)) {
             AppStorage.store(user, access_token)
+            window.location = '/'
         }
 
     }
@@ -22,9 +23,8 @@ class User {
     hasToken() {
         const storedToken = AppStorage.getToken();
         if (storedToken) {
-            return Token.isValid(token) ? true : false;
+            return Token.isValid(storedToken) ? true : false;
         }
-
         return false;
     }
 
@@ -34,6 +34,7 @@ class User {
 
     logout() {
         AppStorage.clear();
+        window.location = '/'
     }
 
     name() {
@@ -49,6 +50,10 @@ class User {
             return payload.sub;
         }
         return 0;
+    }
+
+    own(userId) {
+        return this.id() === userId
     }
 
 }

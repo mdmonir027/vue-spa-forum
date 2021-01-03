@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" v-model="form.email"
-                                       class="form-control" id="email"
+                                       A class="form-control" id="email"
                                        placeholder="Email Address">
                                 <div class="text-danger" v-if="errors && errors.email">{{ errors.email[0]}}</div>
                             </div>
@@ -50,6 +50,8 @@
 </template>
 
 <script>
+    import AppHome from "../AppHome";
+
     export default {
         name: "SignUp",
         data() {
@@ -63,12 +65,18 @@
                 errors: {}
             }
         },
+        created() {
+            if (User.loggedIn()) {
+                this.$router.push({name: 'Home'})
+            }
+        },
         methods: {
             SignUp() {
                 axios.post('/api/auth/sign-up', this.form)
                     .then(response => {
                         this.errors = {};
                         User.responseAfterLogin(response.data)
+                        this.$router.push({name: 'Home'})
                     })
                     .catch(error => this.errors = error.response.data.errors)
             }

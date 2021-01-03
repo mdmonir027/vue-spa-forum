@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QuestionCreateRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 
 class QuestionController extends Controller
 {
@@ -35,13 +38,13 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param QuestionCreateRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        Question::create($request->all());
-        return response('Question Created', Response::HTTP_CREATED);
+       $question = auth()->user()->questions()->create($request->all());
+        return response(new QuestionResource($question), Response::HTTP_CREATED);
     }
 
     /**
@@ -77,7 +80,6 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         $question->delete();
-
         return response(null, Response::HTTP_NO_CONTENT);
 
     }

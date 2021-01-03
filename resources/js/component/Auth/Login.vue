@@ -40,6 +40,11 @@
                 }
             }
         },
+        created() {
+            if (User.loggedIn()){
+                this.$router.push({name: 'Home'})
+            }
+        },
         methods:{
             login(){
                 User.login(this.form)

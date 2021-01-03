@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Forum</a>
+            <router-link to="/" class="navbar-brand">Forum </router-link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -10,20 +10,8 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <router-link to="/" class="nav-link" >Home</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ask Question</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Category</a>
-                    </li>
-                    <li class="nav-item ">
-                        <router-link class="nav-link" to="/login">Login</router-link>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                    <li class="nav-item" v-for="item in items" v-if="item.show">
+                        <router-link :to="item.to" class="nav-link">{{ item.title}}</router-link>
                     </li>
 
                 </ul>
@@ -33,8 +21,26 @@
 </template>
 
 <script>
+    import User from "../Helpers/User";
+
     export default {
-        name: "AppHeader"
+        name: "AppHeader",
+        data: () => {
+            return {
+                items:[
+                    {title:'Forum'  ,to:'/' , show:true},
+                    {title:'Ask Question'  ,to:'/ask' , show:User.loggedIn()},
+                    {title:'Category'  ,to:'/' , show:User.loggedIn()},
+                    {title:'Login'  ,to:'/login' , show:!User.loggedIn()},
+                    {title:'Logout'  ,to:'/logout' , show:User.loggedIn()},
+                ]
+            }
+        },
+        created() {
+            EventBus.$on('logout' , ()=>{
+                User.logout();
+            })
+        }
     }
 </script>
 
