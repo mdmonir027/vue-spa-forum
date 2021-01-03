@@ -2,25 +2,38 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-md-8">
-
-                <question-comp v-for="question in questions" :question="question"></question-comp>
+                <div class="card" v-for="question in questions">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="media-body">
+                                <router-link :to="question.path" v-if="question.path">
+                                    <h5 class="mt-0 mb-1">{{question.title}}</h5>
+                                </router-link>
+                                <span class="text-muted">{{question.user}} asked {{ question.created_at}}</span>
+                                <br>
+                                <div v-html="question.body"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                    </div>
-                </div>
+
+                <side-bar></side-bar>
+
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import QuestionComp from "./comp/QuestionComp";
+
+    import SideBar from "./SideBar";
+
     export default {
         name: "Forum",
-        components: {QuestionComp},
+        components: {SideBar},
         computed: {
             questions() {
                 return this.$store.getters.questions

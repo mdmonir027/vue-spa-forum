@@ -6,6 +6,7 @@ import Logout from "../component/Auth/Logout";
 import Forum from "../component/Forum/Forum";
 import Question from "../component/Forum/Question";
 import AskQuestion from "../component/Forum/AskQuestion";
+import CreateCategory from "../component/Category/CreateCategory";
 
 Vue.use(VueRouter);
 
@@ -13,6 +14,7 @@ const routes = [
 
     {path:'/' , component: Forum , name: 'Home'},
     {path:'/ask' , component: AskQuestion , name: 'AskQuestion'},
+    {path:'/category' , component: CreateCategory , name: 'CreateCategory'},
     {path:'/login' , component: Login , name: 'Login'},
     {path:'/sign-up' , component: SignUp , name: 'SignUp'},
     {path:'/logout' , component: Logout , name: 'Logout'},

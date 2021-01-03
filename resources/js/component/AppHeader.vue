@@ -30,7 +30,7 @@
                 items:[
                     {title:'Forum'  ,to:'/' , show:true},
                     {title:'Ask Question'  ,to:'/ask' , show:User.loggedIn()},
-                    {title:'Category'  ,to:'/' , show:User.loggedIn()},
+                    {title:'Category'  ,to:'/category' , show:User.loggedIn()},
                     {title:'Login'  ,to:'/login' , show:!User.loggedIn()},
                     {title:'Logout'  ,to:'/logout' , show:User.loggedIn()},
                 ]
