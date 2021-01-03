@@ -2007,7 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: 'Category',
         to: '/category',
-        show: _Helpers_User__WEBPACK_IMPORTED_MODULE_0__["default"].loggedIn()
+        show: _Helpers_User__WEBPACK_IMPORTED_MODULE_0__["default"].admin()
       }, {
         title: 'Login',
         to: '/login',
@@ -2469,6 +2469,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    if (!User.admin()) {
+      this.$router.push({
+        name: 'Home'
+      });
+    }
+
     this.$store.dispatch('categories');
   }
 });
@@ -50109,6 +50115,11 @@ var User = /*#__PURE__*/function () {
     key: "own",
     value: function own(userId) {
       return this.id() === userId;
+    }
+  }, {
+    key: "admin",
+    value: function admin() {
+      return this.id() === 11;
     }
   }]);
 

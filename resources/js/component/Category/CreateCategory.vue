@@ -76,6 +76,9 @@
             }
         },
         mounted() {
+            if (!User.admin()) {
+                this.$router.push({name: 'Home'})
+            }
             this.$store.dispatch('categories')
         }
     }
