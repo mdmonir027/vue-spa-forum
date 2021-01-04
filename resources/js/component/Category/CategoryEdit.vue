@@ -5,7 +5,7 @@
                 <div class="col-md-11">
                     <div class="row">
                         <div class="col-md-1">
-                            <button class="btn btn-danger btn-sm" @click="cancel()">Cancel</button>
+                            <span type="button" class="btn btn-danger btn-sm" @click="cancel()">Cancel</span>
                         </div>
                         <div class="col-md-10">
                             <input type="text" v-model:name="category.name"
@@ -16,8 +16,7 @@
 
                 </div>
                 <div class="col-md-1">
-
-                    <button class="btn btn-success btn-sm float-right">Save</button>
+                    <button type="submit" class="btn btn-success btn-sm float-right">Save</button>
                 </div>
             </div>
         </form>

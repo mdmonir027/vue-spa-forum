@@ -2282,7 +2282,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CategoryEdit",
   props: ['category'],
@@ -2370,6 +2369,8 @@ __webpack_require__.r(__webpack_exports__);
 
     EventBus.$on('cancelEditing', function () {
       _this2.editing = false;
+
+      _this2.$store.dispatch('categories');
     });
   }
 });
@@ -32674,9 +32675,10 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "col-md-1" }, [
                 _c(
-                  "button",
+                  "span",
                   {
                     staticClass: "btn btn-danger btn-sm",
+                    attrs: { type: "button" },
                     on: {
                       click: function($event) {
                         return _vm.cancel()
@@ -32727,9 +32729,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-md-1" }, [
-      _c("button", { staticClass: "btn btn-success btn-sm float-right" }, [
-        _vm._v("Save")
-      ])
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success btn-sm float-right",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("Save")]
+      )
     ])
   }
 ]

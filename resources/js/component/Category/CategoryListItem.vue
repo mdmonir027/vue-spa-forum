@@ -41,6 +41,7 @@
         mounted() {
             EventBus.$on('cancelEditing', () => {
                 this.editing = false;
+                this.$store.dispatch('categories')
             })
         }
     }
