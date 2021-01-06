@@ -4,12 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Reply extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $guarded = [];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($reply) {
+            return $reply->user_id = auth()->id();
+        });
+    }
+
+    protected $fillable = ['user_id', 'question_id', 'body'];
 
     public function question()
     {

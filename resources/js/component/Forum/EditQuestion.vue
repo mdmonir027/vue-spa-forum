@@ -12,8 +12,8 @@
             <label>Body</label>
             <ckeditor :editor="editor" v-model="form.body" :config="editorConfig"></ckeditor>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <button type="submit" class="btn btn-danger" @click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-success btn-sm"><save-icon></save-icon></button>
+        <button type="submit" class="btn btn-warning btn-sm" @click="cancel()"><cancel-icon></cancel-icon></button>
 
     </form>
 </template>

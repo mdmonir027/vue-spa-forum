@@ -1,9 +1,12 @@
-export default {
+window.Vue = require('vue');
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+
+const store = new Vuex.Store({
     state: {
         categories: {},
-        questions: {
-            test: 'test'
-        }
+        questions: {},
     },
     getters: {
         categories(state) {
@@ -11,7 +14,8 @@ export default {
         },
         questions(state) {
             return state.questions;
-        }
+        },
+
     },
     actions: {
         categories(data) {
@@ -31,16 +35,18 @@ export default {
                 .catch(error => {
                     console.log(error);
                 })
-        }
+        },
     },
     mutations: {
-        categories(state , data){
-           return  state.categories = data
+        categories(state, data) {
+            return state.categories = data
         },
-        questions(state , data){
-           return  state.questions = data
+        questions(state, data) {
+            return state.questions = data
         },
     },
-}
+});
+
+export default store;
 
 

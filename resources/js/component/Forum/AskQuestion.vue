@@ -17,7 +17,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="category">Category</label>
+                        <label for="category">Body</label>
                         <ckeditor :editor="editor" v-model="form.body" :config="editorConfig"></ckeditor>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

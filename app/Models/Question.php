@@ -15,7 +15,7 @@ class Question extends Model
     {
         parent::boot();
 
-        static::creating(function ($question){
+        static::creating(function ($question) {
             $question->slug = Str::slug($question->title);
         });
     }
@@ -25,7 +25,9 @@ class Question extends Model
         return 'slug';
     }
 
-    protected $fillable = ['title' , 'body' , 'slug' , 'category_id' , 'user_id '];
+    protected $fillable = ['title', 'body', 'slug', 'category_id', 'user_id '];
+
+    protected $with = ['replies'];
 
     public function category()
     {
@@ -39,7 +41,7 @@ class Question extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class)->latest();
+        return $this->hasMany(Reply::class)->orderBy('id' , 'desc');
     }
 
     public function getPathAttribute()
