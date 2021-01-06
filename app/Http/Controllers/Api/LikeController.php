@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\LikeEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Reply;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +30,7 @@ class LikeController extends Controller
         $reply->likes()->create([
             'user_id' => auth()->id()
         ]);
-
+        broadcast(new LikeEvent($reply->id, 1))->toOthers();
         return response('Like', Response::HTTP_CREATED);
     }
 
@@ -42,6 +43,7 @@ class LikeController extends Controller
     public function unlikeIt(Reply $reply)
     {
         $reply->likes()->where('user_id', auth()->id())->first()->delete();
+        broadcast(new LikeEvent($reply->id, 0))->toOthers();
         return response('Unlike', Response::HTTP_ACCEPTED);
     }
 }

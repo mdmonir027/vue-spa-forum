@@ -26,7 +26,7 @@
 <script>
     import User from "../Helpers/User";
 
-    import AppNotifications from "../AppNotifications";
+    import AppNotifications from "./AppNotifications";
 
     export default {
         name: "AppHeader",

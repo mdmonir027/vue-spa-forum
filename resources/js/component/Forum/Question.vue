@@ -32,8 +32,12 @@
 
                     </div>
                     <div class="card-footer" v-if="own && !editing">
-                        <button type="button" class="btn btn-secondary btn-sm" @click="editQuestion()"><edit-icon></edit-icon></button>
-                        <button class="btn btn-info btn-sm" @click="deleteQuestion()"><delete-icon></delete-icon></button>
+                        <button type="button" class="btn btn-secondary btn-sm" @click="editQuestion()">
+                            <edit-icon></edit-icon>
+                        </button>
+                        <button class="btn btn-info btn-sm" @click="deleteQuestion()">
+                            <delete-icon></delete-icon>
+                        </button>
                     </div>
                 </div>
                 <replies :replies="question.replies" :slug="question.slug"></replies>
@@ -89,6 +93,12 @@
                 EventBus.$on('cancelReplyUpdate', () => {
                     this.getQuestion();
                 });
+
+                Echo.private('App.Models.User.' + User.id())
+                    .notification((notification) => {
+                        this.question.replies.unshift(notification.reply)
+                        this.question.repliy_count++;
+                    });
             },
             deleteQuestion() {
                 axios.delete(`/api/question/${this.$route.params.slug}`)
@@ -106,6 +116,8 @@
             this.checkOwn();
             this.listen();
             this.getQuestion();
+        },
+        created() {
         }
     }
 </script>

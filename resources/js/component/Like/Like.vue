@@ -1,7 +1,8 @@
 <template>
+    
     <div class="likeIcon">
-        <liked-icon class="text-primary" @click="unlikeIt" v-if="liked"></liked-icon>
-        <like-icon class="text-primary" @click="likeIt" v-else></like-icon>
+        <liked-icon class="text-primary likeIconCom" @click="unlikeIt" v-if="liked"></liked-icon>
+        <like-icon class="text-primary likeIconCom" @click="likeIt" v-else></like-icon>
         <span>{{ count }}</span>
     </div>
 </template>
@@ -15,6 +16,14 @@
                 count: this.likes.count,
                 liked: this.likes.liked,
             }
+        },
+        created() {
+            Echo.channel(`LikeChannel`)
+                .listen('LikeEvent', (e) => {
+                    if (e.id === this.reply) {
+                        e.type === 1 ? this.count++ : this.count--;
+                    }
+                });
         },
         methods: {
             incr() {
@@ -53,6 +62,9 @@
 
     .likeIcon {
         font-size: 25px;
+    }
+    .likeIconCom:hover{
+        cursor: pointer;
     }
 
 </style>

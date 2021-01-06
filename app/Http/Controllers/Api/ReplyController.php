@@ -25,7 +25,7 @@ class ReplyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param \App\Models\Question $question
+     * @param Question $question
      * @return \Illuminate\Http\Response
      */
     public function index(Question $question)
@@ -36,7 +36,7 @@ class ReplyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Models\Question $question
+     * @param Question $question
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
@@ -53,7 +53,7 @@ class ReplyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Question $question
+     * @param Question $question
      * @param \App\Models\Reply $reply
      * @return \Illuminate\Http\Response
      */
@@ -65,7 +65,7 @@ class ReplyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Models\Question $question
+     * @param Question $question
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Reply $reply
      * @return \Illuminate\Http\Response
@@ -79,7 +79,7 @@ class ReplyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Question $question
+     * @param Question $question
      * @param \App\Models\Reply $reply
      * @return \Illuminate\Http\Response
      */
