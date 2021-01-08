@@ -28,9 +28,7 @@ class ReplyFactory extends Factory
             'question_id' => function () {
                 return Question::all()->random();
             },
-            'user_id' => function () {
-                return User::all()->random();
-            },
+            'user_id' => 1,
         ];
     }
 }

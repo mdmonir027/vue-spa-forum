@@ -23,6 +23,7 @@
 
 <script>
     import BellOutline from "vue-material-design-icons/BellCircle";
+    import Exception from "../Helpers/Exception";
 
     export default {
         name: "AppNotifications",
@@ -44,6 +45,7 @@
                         this.readCount = response.data.read.length;
                         this.unreadCount = response.data.unread.length;
                     })
+                    .catch(error => Exception.handle(error))
             },
             readIt(notification) {
                 axios.post('/api/markAsRead', {id: notification.id})
@@ -63,6 +65,13 @@
             notificationColor() {
                 return this.unreadCount > 0 ? 'text-danger' : 'text-primary'
             }
+        },
+        created() {
+            Echo.private('App.Models.User.' + User.id())
+                .notification((notification) => {
+                    this.unread.unshift(notification)
+                    this.unreadCount++;
+                });
         }
     }
 </script>

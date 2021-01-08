@@ -1,3 +1,4 @@
+import Exception from "./Helpers/Exception";
 require('./bootstrap');
 window.Vue = require('vue');
 import jquery from 'jquery'
@@ -28,6 +29,8 @@ window.jQuery = jquery;
 // user class for global
 window.User = User;
 
+// exception class for global usages
+window.Eception = Exception;
 // ck editor
 Vue.use(CKEditor);
 

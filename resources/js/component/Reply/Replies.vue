@@ -13,6 +13,11 @@
         name: "Replies",
         components: {Reply, AddReply},
         props: ['replies', 'slug'],
+        // data(){
+        //     return{
+        //         replies: this.repliesP
+        //     }
+        // }
     }
 </script>
 

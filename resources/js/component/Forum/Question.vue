@@ -80,6 +80,7 @@
                 this.editing = true;
             },
             listen() {
+
                 EventBus.$on('cancelEditing', () => {
                     this.getQuestion();
                     this.editing = false;
@@ -99,16 +100,39 @@
                         this.question.replies.unshift(notification.reply)
                         this.question.repliy_count++;
                     });
+
+
+            },
+            deleteReply() {
+                let this_ = this;
+                Echo.channel(`deleteReplyChannel`)
+                    .listen('DeleteReplyEvent', (e) => {
+                        let replies = this_.question.replies;
+                        for (let index = 0; index < replies.length; index++) {
+                            if (replies[index].id === e.id) {
+                                replies.splice(index, 1)
+                                this_.question.repliy_count--;
+                            }
+                        }
+                    });
             },
             deleteQuestion() {
                 axios.delete(`/api/question/${this.$route.params.slug}`)
-                    .then(response => this.$router.push({name: 'Home'}))
+                    .then(response => {
+                        this.$router.push({name: 'Home'})
+                        this.refreshReply();
+                    })
                     .catch(error => console.log(error.response.data))
+            },
+            refreshReply() {
+                this.listen();
             }
+
         },
         watch: {
             check() {
                 this.getQuestion();
+                this.deleteReply();
             }
         },
         mounted() {
@@ -116,9 +140,11 @@
             this.checkOwn();
             this.listen();
             this.getQuestion();
+            this.deleteReply()
         },
         created() {
-        }
+            this.deleteReply();
+        },
     }
 </script>
 

@@ -29,7 +29,7 @@
                 axios.post(`/api/question/${this.questionSlug}/reply`, {body: this.body})
                     .then(response => {
                         this.body = ''
-                        EventBus.$emit('addReply');
+                        EventBus.$emit('addReply', response.data);
                     })
                     .catch(error => console.log(error.response.data))
             }

@@ -1,5 +1,5 @@
 <template>
-    
+
     <div class="likeIcon">
         <liked-icon class="text-primary likeIconCom" @click="unlikeIt" v-if="liked"></liked-icon>
         <like-icon class="text-primary likeIconCom" @click="likeIt" v-else></like-icon>

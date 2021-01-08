@@ -5,12 +5,12 @@
         </div>
         <div class="media mt-4 border p-3" v-else>
             <div class="media-body">
-                <h5 class="mt-0">{{reply.user}} <span class="badge badge-primary"> asked {{reply.created_at}}</span>
+                <h5 class="mt-0">{{reply.user}} <span class="badge badge-primary"> replied {{reply.created_at}}</span>
                 </h5>
 
                 <div v-html="reply.reply"></div>
 
-                <hr>
+                <hr v-if="own">
                 <div v-if="own">
                     <!--                <button class="btn btn-warning btn-sm" @click="editReply">thumb_up</button>-->
                     <button class="btn btn-outline-secondary btn-sm" @click="editReply">
@@ -65,7 +65,8 @@
             },
             ownReply() {
                 this.own = User.own(this.reply.user_id);
-            }
+            },
+
         },
         mounted() {
             this.listen();
