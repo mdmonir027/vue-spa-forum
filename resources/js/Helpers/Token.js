@@ -1,9 +1,9 @@
 class Token {
 
-    isValid(token){
+    isValid(token) {
         const payload = this.payload(token);
-        if (payload){
-            return payload.iss == 'http://spa-blog.test/api/auth/login' || 'http://spa-blog.test/api/auth/sign-up' ? true: false;
+        if (payload) {
+            return !!(payload.iss === 'http://spa-blog.test/api/auth/login' || 'http://spa-blog.test/api/auth/sign-up');
         }
         return false
     }
@@ -13,8 +13,19 @@ class Token {
         return this.decode(payload);
     }
 
-    decode(payload){
-        return JSON.parse(atob(payload));
+    decode(payload) {
+        if (this.isBase64(payload)) {
+            return JSON.parse(atob(payload));
+        }
+        return false;
+    }
+
+    isBase64(payload) {
+        try {
+            return btoa(atob(payload)) === payload;
+        } catch (e) {
+            return false
+        }
     }
 
 }

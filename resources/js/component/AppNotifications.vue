@@ -8,7 +8,7 @@
              <sup :class="notificationColor"> {{ unreadCount }}</sup>
           </a>
 
-          <div class="dropdown-menu" aria-labelledby="notificationDropDown">
+          <div class="dropdown-menu" v-if="unreadCount > 0 || readCount > 0" aria-labelledby="notificationDropDown">
 
               <router-link :to="item.path" v-for="item in unread" :key="item.id"
                            class="dropdown-item">
@@ -80,12 +80,7 @@
     #notificationDropDown .notificationIcon {
         font-size: 25px;
     }
-
     #notificationDropDown:after {
         display: none !important;
-    }
-
-    .notificationCount {
-        /*font-size: 10px;*/
     }
 </style>

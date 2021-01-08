@@ -3329,7 +3329,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#notificationDropDown .notificationIcon {\n    font-size: 25px;\n}\n#notificationDropDown:after {\n    display: none !important;\n}\n.notificationCount {\n    /*font-size: 10px;*/\n}\n", ""]);
+exports.push([module.i, "\n#notificationDropDown .notificationIcon {\n    font-size: 25px;\n}\n#notificationDropDown:after {\n    display: none !important;\n}\n", ""]);
 
 // exports
 
@@ -39946,51 +39946,53 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "dropdown-menu",
-          attrs: { "aria-labelledby": "notificationDropDown" }
-        },
-        [
-          _vm._l(_vm.unread, function(item) {
-            return _c(
-              "router-link",
-              {
-                key: item.id,
-                staticClass: "dropdown-item",
-                attrs: { to: item.path }
-              },
-              [
-                _c(
-                  "span",
+      _vm.unreadCount > 0 || _vm.readCount > 0
+        ? _c(
+            "div",
+            {
+              staticClass: "dropdown-menu",
+              attrs: { "aria-labelledby": "notificationDropDown" }
+            },
+            [
+              _vm._l(_vm.unread, function(item) {
+                return _c(
+                  "router-link",
                   {
-                    on: {
-                      click: function($event) {
-                        return _vm.readIt(item)
-                      }
-                    }
+                    key: item.id,
+                    staticClass: "dropdown-item",
+                    attrs: { to: item.path }
                   },
-                  [_vm._v(" " + _vm._s(item.replyBy) + " has reply on ")]
+                  [
+                    _c(
+                      "span",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.readIt(item)
+                          }
+                        }
+                      },
+                      [_vm._v(" " + _vm._s(item.replyBy) + " has reply on ")]
+                    )
+                  ]
                 )
-              ]
-            )
-          }),
-          _vm._v(" "),
-          _vm.read.length > 0 && _vm.unreadCount > 0 ? _c("hr") : _vm._e(),
-          _vm._v(" "),
-          _vm._l(_vm.read, function(item) {
-            return _vm.read.length > 0
-              ? _c(
-                  "span",
-                  { key: item.id, staticClass: "dropdown-item disabled" },
-                  [_vm._v(" " + _vm._s(item.replyBy) + " has reply on")]
-                )
-              : _vm._e()
-          })
-        ],
-        2
-      )
+              }),
+              _vm._v(" "),
+              _vm.read.length > 0 && _vm.unreadCount > 0 ? _c("hr") : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.read, function(item) {
+                return _vm.read.length > 0
+                  ? _c(
+                      "span",
+                      { key: item.id, staticClass: "dropdown-item disabled" },
+                      [_vm._v(" " + _vm._s(item.replyBy) + " has reply on")]
+                    )
+                  : _vm._e()
+              })
+            ],
+            2
+          )
+        : _vm._e()
     ])
   ])
 }
@@ -58665,7 +58667,7 @@ var Token = /*#__PURE__*/function () {
       var payload = this.payload(token);
 
       if (payload) {
-        return payload.iss == 'http://spa-blog.test/api/auth/login' || 'http://spa-blog.test/api/auth/sign-up' ? true : false;
+        return !!(payload.iss === 'http://spa-blog.test/api/auth/login' || 'http://spa-blog.test/api/auth/sign-up');
       }
 
       return false;
@@ -58679,7 +58681,20 @@ var Token = /*#__PURE__*/function () {
   }, {
     key: "decode",
     value: function decode(payload) {
-      return JSON.parse(atob(payload));
+      if (this.isBase64(payload)) {
+        return JSON.parse(atob(payload));
+      }
+
+      return false;
+    }
+  }, {
+    key: "isBase64",
+    value: function isBase64(payload) {
+      try {
+        return btoa(atob(payload)) === payload;
+      } catch (e) {
+        return false;
+      }
     }
   }]);
 
