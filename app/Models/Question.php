@@ -20,6 +20,12 @@ class Question extends Model
         });
     }
 
+    const VALIDATION_RULES = [
+        'title' => 'required | unique:questions',
+        'body' => 'required',
+        'category_id' => 'required'
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';

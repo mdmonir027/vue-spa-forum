@@ -2633,6 +2633,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AskQuestion",
@@ -2663,7 +2665,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/question', this.form).then(function (response) {
         return _this.$router.push(response.data.path);
       })["catch"](function (error) {
-        return _this.errors = error.response.data;
+        return _this.errors = error.response.data.errors;
       });
     }
   }
@@ -2702,6 +2704,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EditQuestion",
@@ -2713,7 +2720,8 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         body: this.question.body,
         title: this.question.title
-      }
+      },
+      errors: {}
     };
   },
   methods: {
@@ -2721,11 +2729,13 @@ __webpack_require__.r(__webpack_exports__);
       EventBus.$emit('cancelEditing');
     },
     questionUpdate: function questionUpdate() {
+      var _this = this;
+
       var this_ = this;
       axios.put("/api/question/".concat(this.$route.params.slug), this.form).then(function (response) {
         return this_.cancel();
       })["catch"](function (error) {
-        return console.log(error.response.data);
+        return _this.errors = error.response.data.errors;
       });
     }
   }
@@ -40748,7 +40758,11 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "text-danger" })
+              _vm.errors && _vm.errors.title
+                ? _c("div", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.title[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -40793,7 +40807,13 @@ var render = function() {
                   ])
                 }),
                 0
-              )
+              ),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.category_id
+                ? _c("div", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.category_id[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c(
@@ -40811,7 +40831,13 @@ var render = function() {
                     },
                     expression: "form.body"
                   }
-                })
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.body
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.body[0]))
+                    ])
+                  : _vm._e()
               ],
               1
             ),
@@ -40885,7 +40911,11 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("div", { staticClass: "text-danger" })
+        _vm.errors && _vm.errors.title
+          ? _c("div", { staticClass: "text-danger" }, [
+              _vm._v(_vm._s(_vm.errors.title[0]))
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -40903,7 +40933,13 @@ var render = function() {
               },
               expression: "form.body"
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.body
+            ? _c("div", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.body[0]))
+              ])
+            : _vm._e()
         ],
         1
       ),

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\QuestionCreateRequest;
+use App\Http\Requests\QuestionStoreRequest;
+use App\Http\Requests\QuestionUpdateRequest;
 use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\User;
 
 class QuestionController extends Controller
 {
@@ -38,12 +37,12 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param QuestionCreateRequest $request
+     * @param QuestionStoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionStoreRequest $request)
     {
-       $question = auth()->user()->questions()->create($request->all());
+        $question = auth()->user()->questions()->create($request->all());
         return response(new QuestionResource($question), Response::HTTP_CREATED);
     }
 
@@ -61,12 +60,17 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param QuestionUpdateRequest $request
      * @param \App\Models\Question $question
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Question $question)
     {
+        $request->validate([
+            'title' => "required | unique:questions,title," . $question->id,
+            'body' => 'required',
+        ]);
+
         $question->update($request->all());
         return response('Question Updated', Response::HTTP_ACCEPTED);
     }

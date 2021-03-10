@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Question;
 use Illuminate\Foundation\Http\FormRequest;
 
-class QuestionCreateRequest extends FormRequest
+class QuestionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class QuestionCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +25,8 @@ class QuestionCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required ',
+            'title' => "required | unique:questions,title",
             'body' => 'required',
-            'category_id' => 'required',
         ];
     }
 }
